@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+function formatDate(date: Date): string {
+	return date.toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
+}
+---
+
+<Layout title={`${post.data.title} - ex10x`} description={post.data.description}>
+	<article class="py-20">
+		<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+			<!-- Header -->
+			<header class="mb-10">
+				<a
+					href="/blog"
+					class="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6"
+				>
+					<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+					</svg>
+					Back to Blog
+				</a>
+
+				<div class="flex flex-wrap gap-2 mb-4">
+					{post.data.tags.map((tag) => (
+						<span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+							{tag}
+						</span>
+					))}
+				</div>
+
+				<h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+					{post.data.title}
+				</h1>
+
+				<div class="flex items-center text-sm text-gray-500">
+					<span>{post.data.author}</span>
+					<span class="mx-2">·</span>
+					<time datetime={post.data.pubDate.toISOString()}>
+						{formatDate(post.data.pubDate)}
+					</time>
+				</div>
+			</header>
+
+			<!-- Content -->
+			<div class="prose prose-gray max-w-none prose-headings:font-semibold prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-gray-900 prose-a:underline hover:prose-a:no-underline prose-strong:text-gray-900 prose-ul:text-gray-600 prose-ol:text-gray-600 prose-li:text-gray-600">
+				<Content />
+			</div>
+
+			<!-- Footer -->
+			<footer class="mt-16 pt-8 border-t border-gray-200">
+				<div class="bg-gray-50 rounded-xl p-6">
+					<h3 class="text-lg font-semibold text-gray-900 mb-2">Want to learn more?</h3>
+					<p class="text-gray-600 mb-4">
+						Book a personal session for hands-on guidance tailored to your needs.
+					</p>
+					<a
+						href="/book"
+						class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
+					>
+						Book a Session
+					</a>
+				</div>
+			</footer>
+		</div>
+	</article>
+</Layout>

@@ -1,0 +1,160 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251201-215525-beginning-of-ex10x.txt
+Created:      2024-12-01 21:55:25
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       N/A (not yet a git repository)
+Previous Log: None (first entry)
+================================================================================
+
+## Project Summary
+
+ex10x is a personal brand website for Chris Fossenier focused on teaching
+AI productivity techniques, specifically "vibe coding" and AI automation.
+The site offers blog content, video resources, and session booking.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+### Technology Stack
+- Framework: Astro 5.16.3
+- Styling: Tailwind CSS 4.1.17 with Typography plugin
+- Build: Vite (via Astro)
+- Language: TypeScript
+
+### Project Structure
+```
+ex10x/
+├── src/
+│   ├── components/
+│   │   ├── Navigation.astro
+│   │   └── Footer.astro
+│   ├── content/
+│   │   └── blog/
+│   │       ├── getting-started-with-vibe-coding.md
+│   │       └── ai-automation-basics.md
+│   ├── layouts/
+│   │   └── Layout.astro
+│   ├── pages/
+│   │   ├── index.astro (home page)
+│   │   ├── about.astro
+│   │   ├── book.astro
+│   │   ├── videos.astro
+│   │   └── blog/
+│   │       ├── index.astro
+│   │       └── [...slug].astro
+│   ├── styles/
+│   │   └── global.css
+│   └── content.config.ts
+├── public/
+├── dist/ (build output)
+└── docs/
+    └── captains_log/
+```
+
+### Pages Overview
+1. **Home (/)** - Hero section, "What You'll Learn", About Chris, CTA
+2. **About (/about)** - About page for Chris Fossenier
+3. **Book (/book)** - Session booking page
+4. **Videos (/videos)** - Video content page
+5. **Blog (/blog)** - Blog index and individual posts
+
+### Key Features
+- Clean, minimalist design with gray color scheme
+- Responsive layout (mobile-first)
+- Blog with markdown content collections
+- Typography plugin for blog posts
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+- Initial Astro project scaffolding from basics template
+- Tailwind CSS 4 integration with typography plugin
+- Layout component with Navigation and Footer
+- Home page with hero, features, about section, and CTA
+- Blog system with content collections
+- Multiple static pages (about, book, videos)
+- Two initial blog posts on vibe coding and AI automation
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **Astro over other frameworks** - Chose Astro for its excellent static site
+   generation, content collections for blog posts, and minimal JavaScript
+   by default
+
+2. **Tailwind CSS 4** - Using the latest Tailwind with Vite plugin for modern
+   styling workflow
+
+3. **Gray/minimal color scheme** - Clean, professional look that puts content
+   first
+
+4. **Content Collections** - Using Astro's built-in content collections for
+   type-safe blog posts
+
+--------------------------------------------------------------------------------
+## Known Issues / TODOs
+--------------------------------------------------------------------------------
+
+- [ ] Not yet a git repository - needs initialization
+- [ ] Photo placeholder on home page needs actual image
+- [ ] Book page functionality not yet implemented (just placeholder?)
+- [ ] Videos page content not yet added
+- [ ] Need to review/complete about page content
+- [ ] No favicon customization yet (using default Astro)
+- [ ] No SEO metadata configured
+
+--------------------------------------------------------------------------------
+## Architecture Notes
+--------------------------------------------------------------------------------
+
+### Astro Content Collections
+Blog posts are in `src/content/blog/` as markdown files. The content config
+at `src/content.config.ts` defines the schema. Dynamic routing via
+`[...slug].astro` renders individual posts.
+
+### Styling Approach
+Using Tailwind utility classes directly in components. Global styles in
+`src/styles/global.css`. Typography plugin handles blog post formatting.
+
+--------------------------------------------------------------------------------
+## Lessons Learned
+--------------------------------------------------------------------------------
+
+- Tailwind CSS 4 uses the new Vite plugin instead of PostCSS config
+- Astro 5 has updated content collections API
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. Initialize git repository
+2. Add actual photo/avatar for Chris
+3. Implement booking functionality (Calendly embed? Custom form?)
+4. Populate videos page with content
+5. Write more blog posts
+6. Add SEO metadata (og tags, description, etc.)
+7. Set up deployment (Vercel/Netlify)
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+This is the initial captain's log documenting the ex10x project at its
+starting point. The site is functional but needs content and polish. The
+dev server runs with `npm run dev` on port 4321.
+
+Focus areas for next sessions:
+- Content creation (blog posts, about page copy)
+- Visual polish (images, icons, refined styling)
+- Functionality (booking system, video embeds)
+- Deployment pipeline
+
+================================================================================
+                              END OF LOG
+================================================================================

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npx create-astro@latest:*)",
+      "Bash(npx astro add tailwind -y)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(if [ -d docs/captains_log ])",
+      "Bash(then echo 'Directory exists')",
+      "Bash(else echo \"Directory does not exist\")",
+      "Bash(fi)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

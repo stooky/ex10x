@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Book a Session - ex10x" description="Book a personal session with Chris Fossenier for tailored AI productivity guidance.">
+	<section class="py-20">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-12">
+				<h1 class="text-4xl font-bold text-gray-900 mb-4">Book a Session</h1>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					Get personalized guidance on using AI to boost your productivity. Whether you're just getting started or looking to level up, I'll help you get there.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+				<div class="bg-gray-50 p-6 rounded-xl">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">What to Expect</h3>
+					<ul class="space-y-3 text-gray-600">
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+							<span>One-on-one video call</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+							<span>Tailored to your specific needs</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+							<span>Practical, actionable advice</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+							<span>Follow-up resources and notes</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="bg-gray-50 p-6 rounded-xl">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Topics We Can Cover</h3>
+					<ul class="space-y-3 text-gray-600">
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+							</svg>
+							<span>Vibe coding techniques</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+							</svg>
+							<span>AI workflow automation</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+							</svg>
+							<span>Prompt engineering</span>
+						</li>
+						<li class="flex items-start">
+							<svg class="w-5 h-5 text-gray-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+							</svg>
+							<span>Team productivity strategies</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Cal.com Embed -->
+			<div class="bg-white border border-gray-200 rounded-xl p-8">
+				<div class="text-center">
+					<p class="text-gray-600 mb-6">
+						Select a time that works for you:
+					</p>
+					<!-- Cal.com embed will go here -->
+					<!-- Replace YOUR_CALCOM_USERNAME with your actual Cal.com username -->
+					<div id="cal-embed" class="min-h-[600px] flex items-center justify-center bg-gray-50 rounded-lg">
+						<div class="text-center p-8">
+							<p class="text-gray-500 mb-4">Cal.com booking widget will load here</p>
+							<p class="text-sm text-gray-400">
+								To enable: Add your Cal.com embed script with your username
+							</p>
+						</div>
+					</div>
+
+					<!-- Uncomment and update this script when you have your Cal.com username -->
+					<!--
+					<script type="text/javascript">
+						(function (C, A, L) {
+							let p = function (a, ar) { a.q.push(ar); };
+							let d = C.document;
+							C.Cal = C.Cal || function () {
+								let cal = C.Cal;
+								let ar = arguments;
+								if (!cal.loaded) {
+									cal.ns = {};
+									cal.q = cal.q || [];
+									d.head.appendChild(d.createElement("script")).src = A;
+									cal.loaded = true;
+								}
+								if (ar[0] === L) {
+									const api = function () { p(api, arguments); };
+									const namespace = ar[1];
+									api.q = api.q || [];
+									typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+									return;
+								}
+								p(cal, ar);
+							};
+						})(window, "https://app.cal.com/embed/embed.js", "init");
+						Cal("init", {origin:"https://app.cal.com"});
+
+						Cal("inline", {
+							elementOrSelector:"#cal-embed",
+							calLink: "YOUR_CALCOM_USERNAME/30min",
+							layout: "month_view"
+						});
+
+						Cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+					</script>
+					-->
+				</div>
+			</div>
+
+			<div class="mt-8 text-center">
+				<p class="text-gray-500 text-sm">
+					Prefer email? Reach out at <a href="mailto:chris@ex10x.com" class="text-gray-900 hover:underline">chris@ex10x.com</a>
+				</p>
+			</div>
+		</div>
+	</section>
+</Layout>
