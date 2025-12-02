@@ -18,28 +18,13 @@ This guide walks you through deploying the ex10x Astro website on an Ubuntu serv
    ssh root@your-server-ip
    ```
 
-2. Download and edit the install script:
+2. Clone the repo and run the installer:
    ```bash
-   # Download the script
-   curl -O https://raw.githubusercontent.com/YOUR_USERNAME/ex10x/main/deploy/install.sh
-
-   # Or clone the repo first
-   git clone https://github.com/YOUR_USERNAME/ex10x.git
+   git clone https://github.com/stooky/ex10x.git
    cd ex10x/deploy
    ```
 
-3. Edit configuration variables:
-   ```bash
-   nano install.sh
-   ```
-
-   Update these values at the top:
-   ```bash
-   DOMAIN="yourdomain.com"
-   GIT_REPO="https://github.com/YOUR_USERNAME/ex10x.git"
-   ```
-
-4. Run the installer:
+3. Run the installer:
    ```bash
    chmod +x install.sh
    ./install.sh
@@ -91,7 +76,7 @@ sudo apt install -y certbot python3-certbot-nginx
 ```bash
 sudo mkdir -p /var/www/ex10x
 cd /var/www
-sudo git clone https://github.com/YOUR_USERNAME/ex10x.git ex10x
+sudo git clone https://github.com/stooky/ex10x.git ex10x
 cd ex10x
 ```
 
@@ -122,7 +107,7 @@ Paste this configuration:
 server {
     listen 80;
     listen [::]:80;
-    server_name yourdomain.com www.yourdomain.com;
+    server_name ex10x.com www.ex10x.com;
 
     root /var/www/ex10x/dist;
     index index.html;
@@ -182,7 +167,7 @@ sudo ufw enable
 Make sure your domain is pointing to your server, then:
 
 ```bash
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+sudo certbot --nginx -d ex10x.com -d www.ex10x.com
 ```
 
 Follow the prompts. Certbot will automatically configure nginx for HTTPS.
@@ -262,6 +247,41 @@ sudo certbot renew --dry-run
 Check certificate status:
 ```bash
 sudo certbot certificates
+```
+
+### Repair: Installed with wrong domain (example.com)
+
+If you ran the installer with `example.com` as the domain and need to fix it:
+
+```bash
+# 1. Update the nginx config
+sudo nano /etc/nginx/sites-available/ex10x
+```
+
+Change the `server_name` line from:
+```nginx
+server_name example.com www.example.com;
+```
+To:
+```nginx
+server_name ex10x.com www.ex10x.com;
+```
+
+```bash
+# 2. Test and reload nginx
+sudo nginx -t
+sudo systemctl reload nginx
+
+# 3. Set up SSL for the correct domain
+sudo certbot --nginx -d ex10x.com -d www.ex10x.com
+
+# 4. (Optional) Remove old example.com SSL cert if created
+sudo certbot delete --cert-name example.com
+```
+
+**One-liner fix** (if no SSL was set up yet):
+```bash
+sudo sed -i 's/example\.com/ex10x.com/g' /etc/nginx/sites-available/ex10x && sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ---

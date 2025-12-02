@@ -2,12 +2,13 @@
 # Copy this to /etc/nginx/sites-available/ex10x
 # Then: sudo ln -sf /etc/nginx/sites-available/ex10x /etc/nginx/sites-enabled/
 #
-# Replace YOUR_DOMAIN with your actual domain name
+# Default: ex10x.com
+# Replace with your actual domain name if different
 
 server {
     listen 80;
     listen [::]:80;
-    server_name YOUR_DOMAIN www.YOUR_DOMAIN;
+    server_name ex10x.com www.ex10x.com;
 
     root /var/www/ex10x/dist;
     index index.html;

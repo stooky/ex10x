@@ -11,8 +11,8 @@ set -e  # Exit on any error
 #-------------------------------------------------------------------------------
 # Configuration - EDIT THESE VALUES
 #-------------------------------------------------------------------------------
-DOMAIN="example.com"           # Your domain name (e.g., ex10x.com)
-GIT_REPO=""                    # Your git repository URL
+DOMAIN="ex10x.com"             # Your domain name
+GIT_REPO="https://github.com/stooky/ex10x.git"  # Git repository URL
 APP_DIR="/var/www/ex10x"       # Where to install the app
 APP_USER="www-data"            # User to run the app as
 NODE_VERSION="20"              # Node.js major version
