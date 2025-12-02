@@ -1,0 +1,226 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251201-223000-deployed-to-the-cloud.txt
+Created:      2024-12-01 22:30:00
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       main
+Previous Log: caplog-20251201-221500-added-startup-script.txt
+================================================================================
+
+## Summary
+
+Successfully deployed ex10x.com to a Vultr Ubuntu server. Created comprehensive
+deployment scripts, documentation, and configured nginx with SSL. The site is
+now live at https://ex10x.com with automatic HTTPS.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+The site is now **LIVE IN PRODUCTION** at https://ex10x.com
+
+Infrastructure:
+- Vultr Ubuntu server
+- Nginx serving static files from /var/www/ex10x/dist
+- SSL via Let's Encrypt (certbot)
+- Domain: ex10x.com + www.ex10x.com
+
+Local development:
+- Windows dev machine
+- startup.bat for local dev server
+- Git repo synced with GitHub (stooky/ex10x)
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+### Deployment Scripts (deploy/ directory)
+
+1. **install.sh** - Full automated Ubuntu installer
+   - Installs Node.js 20 via NodeSource
+   - Installs and configures nginx
+   - Clones repo from GitHub
+   - Builds the Astro site
+   - Configures firewall (ufw)
+   - Sets up SSL with certbot
+   - Pre-configured for ex10x.com domain
+
+2. **rebuild.sh** - Quick rebuild script
+   - Pulls latest from git
+   - Runs npm ci
+   - Rebuilds site
+   - Fixes permissions
+
+3. **nginx.conf.template** - Production nginx config
+   - Security headers (X-Frame-Options, X-Content-Type-Options, etc.)
+   - Gzip compression
+   - Static asset caching (1 year for versioned assets)
+   - Proper Astro routing (try_files with .html fallback)
+
+4. **INSTALL.md** - Comprehensive documentation
+   - Quick start guide
+   - Manual installation steps
+   - Troubleshooting section
+   - Repair instructions for wrong domain
+   - Security recommendations
+   - Vultr-specific notes
+
+### Server Configuration
+
+- Nginx configured and running
+- SSL certificate obtained and auto-renewal enabled
+- Firewall configured (ports 22, 80, 443)
+- Static files served from /var/www/ex10x/dist
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **Static deployment over SSR**
+   - Astro builds to static HTML/CSS/JS
+   - Nginx serves files directly (no Node.js process in production)
+   - Simpler, faster, more secure
+   - No need for PM2 or process managers
+
+2. **Nginx over other web servers**
+   - Industry standard for static sites
+   - Excellent performance and caching
+   - Easy SSL integration with certbot
+   - Built-in gzip compression
+
+3. **Let's Encrypt for SSL**
+   - Free certificates
+   - Auto-renewal via certbot timer
+   - Industry trusted
+
+4. **GitHub as deployment source**
+   - Push to GitHub, then run rebuild.sh on server
+   - Simple and reliable
+   - Could add GitHub Actions later for auto-deploy
+
+--------------------------------------------------------------------------------
+## Issues Encountered
+--------------------------------------------------------------------------------
+
+1. **SSL certificate expansion prompt**
+   - Certbot asked whether to expand existing cert for www subdomain
+   - Solution: Press 'E' to expand certificate to include www.ex10x.com
+
+2. **Initial domain misconfiguration**
+   - Install script originally had example.com as placeholder
+   - Updated to ex10x.com as default
+   - Added repair instructions to INSTALL.md for fixing wrong domain
+
+--------------------------------------------------------------------------------
+## Commits Made
+--------------------------------------------------------------------------------
+
+- 7bbeccc: Add startup.bat script for dev server management
+- ba49705: Add Ubuntu server deployment scripts
+- 10b2478: Update deploy scripts for ex10x.com domain
+
+--------------------------------------------------------------------------------
+## Mistakes & Lessons
+--------------------------------------------------------------------------------
+
+1. **Placeholder domains in scripts**
+   - Should use actual domain from the start when known
+   - Added repair instructions to help others who hit this issue
+
+2. **Platform-specific scripts**
+   - Initially created .sh for Windows user
+   - Always confirm target environment before creating scripts
+
+--------------------------------------------------------------------------------
+## Architecture Notes
+--------------------------------------------------------------------------------
+
+### Deployment Flow
+
+```
+Local Dev                    GitHub                 Vultr Server
+-----------                  ------                 ------------
+Edit code
+    |
+    v
+git push  -----------------> stooky/ex10x
+                                  |
+                                  v
+                             (manual trigger)
+                                  |
+                                  v
+                             ssh to server
+                                  |
+                                  v
+                             ./deploy/rebuild.sh
+                                  |
+                                  v
+                             git pull
+                             npm ci
+                             npm run build
+                                  |
+                                  v
+                             Static files in /dist
+                                  |
+                                  v
+                             Served by nginx
+```
+
+### Server Directory Structure
+
+```
+/var/www/ex10x/
+├── dist/              # Built static files (nginx serves this)
+├── src/               # Source files
+├── deploy/            # Deployment scripts
+├── node_modules/      # Build dependencies
+├── package.json
+└── ...
+
+/etc/nginx/sites-available/ex10x    # Nginx config
+/etc/letsencrypt/live/ex10x.com/    # SSL certificates
+```
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. ~~Set up deployment (Vercel/Netlify)~~ ✓ DONE (used Vultr instead)
+2. ~~Set up remote repository (GitHub)~~ ✓ DONE
+3. Add actual photo/avatar for Chris
+4. Implement booking functionality (Calendly embed?)
+5. Populate videos page with content
+6. Write more blog posts
+7. Add SEO metadata (og tags, description, etc.)
+8. Consider GitHub Actions for auto-deploy on push
+9. Set up monitoring/uptime checks
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+The site is live at https://ex10x.com hosted on Vultr Ubuntu.
+
+**To deploy updates:**
+```bash
+# On the Vultr server
+sudo /var/www/ex10x/deploy/rebuild.sh
+```
+
+**Key files on server:**
+- Nginx config: /etc/nginx/sites-available/ex10x
+- SSL certs: /etc/letsencrypt/live/ex10x.com/
+- Site files: /var/www/ex10x/dist/
+
+**This is a STATIC site** - no Node.js runs in production. Nginx serves the
+built files directly. No PM2 needed.
+
+**Time estimate discussion:**
+User asked how long this would take a seasoned dev without AI. Estimate:
+12-20 hours (1.5-2.5 days). We did it in ~1-2 hours of conversation.
+
+================================================================================
+                              END OF LOG
+================================================================================
