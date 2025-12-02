@@ -1,0 +1,115 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251201-221500-added-startup-script.txt
+Created:      2024-12-01 22:15:00
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       main
+Previous Log: caplog-20251201-215525-beginning-of-ex10x.txt
+================================================================================
+
+## Summary
+
+Added a Windows batch script (startup.bat) to streamline development workflow.
+The script kills any existing Node/Astro processes on port 4321 before launching
+the dev server, preventing port conflicts.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+The project now has:
+- Git repository initialized with initial commit
+- A startup.bat script for easy dev server management
+- All core pages and blog functionality in place
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+- Created startup.bat - Windows batch script for dev server management
+  - Finds and kills any process using port 4321 (Astro default)
+  - Uses netstat + taskkill for Windows compatibility
+  - Includes 1-second delay for port release
+  - Launches `npm run dev` after cleanup
+
+- Initially created startup.sh (bash version), then replaced with .bat for
+  Windows compatibility per user request
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **Batch file over bash script** - User is on Windows, so .bat is more
+   native and doesn't require Git Bash or WSL
+
+2. **Port-based process killing** - Kill by port 4321 rather than process name
+   to ensure we catch any node process holding the Astro dev port
+
+3. **taskkill /F** - Force kill to ensure clean termination
+
+--------------------------------------------------------------------------------
+## Issues Encountered
+--------------------------------------------------------------------------------
+
+None this session.
+
+--------------------------------------------------------------------------------
+## Files Changed
+--------------------------------------------------------------------------------
+
+New files:
+- startup.bat (new)
+
+Deleted files:
+- startup.sh (removed - replaced with .bat)
+
+Modified files:
+- docs/captains_log/caplog-20251201-215525-beginning-of-ex10x.txt (updated)
+
+--------------------------------------------------------------------------------
+## Commits Made
+--------------------------------------------------------------------------------
+
+No new commits yet - changes are uncommitted.
+
+Uncommitted changes:
+- M .claude/settings.local.json
+- M docs/captains_log/caplog-20251201-215525-beginning-of-ex10x.txt
+- M package-lock.json
+- ?? startup.bat (untracked)
+
+--------------------------------------------------------------------------------
+## Mistakes & Lessons
+--------------------------------------------------------------------------------
+
+- Initially created a .sh script before confirming the user's environment
+- Should ask about OS/environment upfront when creating platform-specific scripts
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. Commit the startup.bat and updated log files
+2. Add actual photo/avatar for Chris
+3. Implement booking functionality (Calendly embed? Custom form?)
+4. Populate videos page with content
+5. Write more blog posts
+6. Add SEO metadata (og tags, description, etc.)
+7. Set up deployment (Vercel/Netlify)
+8. Set up remote repository (GitHub)
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+The startup.bat script is the preferred way to launch the dev server on this
+Windows machine. It handles the common issue of port 4321 being held by a
+previous crashed/orphaned node process.
+
+Usage: Just run `startup.bat` or double-click it in Explorer.
+
+================================================================================
+                              END OF LOG
+================================================================================
