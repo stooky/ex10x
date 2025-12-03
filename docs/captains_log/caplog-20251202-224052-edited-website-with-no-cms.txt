@@ -1,0 +1,192 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251202-224052-edited-website-with-no-cms.txt
+Created:      2024-12-02 22:40:52
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       main
+Previous Log: caplog-20251201-223000-deployed-to-the-cloud.txt
+================================================================================
+
+## Summary
+
+Made visual updates to the live website directly through code - no CMS needed.
+Added an eye-catching "built with AI" badge, replaced photo placeholders with
+optimized images, and updated the homepage CTA. Also fixed server deployment
+workflow issues.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+The site is live at https://ex10x.com with new visual updates:
+- Purple/blue gradient "This entire site was built with AI!!" badge on homepage
+- Kayaking photo on homepage (optimized from 1.7MB to 50KB WebP)
+- Smiling photo on about page (optimized from 652KB to 10KB WebP)
+- Updated CTA button: "Book a 30 minute AI Session!"
+
+Server deployment workflow is now understood - must copy dist/ to
+/var/www/ex10x/dist/ after building since nginx can't access /root/.
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+### Homepage Updates (src/pages/index.astro)
+1. Added animated "built with AI" badge above hero headline
+   - Purple-to-blue gradient pill with pulsing dot indicator
+   - Gradient text effect
+   - Custom subtle pulse animation
+
+2. Removed "Read the Blog" button from hero
+3. Updated remaining button to "Book a 30 minute AI Session!" (wider, black)
+4. Replaced photo placeholder with kayaking image
+
+### About Page Updates (src/pages/about.astro)
+1. Replaced photo placeholder with smiling portrait
+
+### Image Optimization
+- Created src/assets/images/ folder for Astro-optimized images
+- Images stored as source files (jpg/png) in src/assets/
+- Astro automatically generates WebP versions at build time
+- Compression results:
+  - Kayaking: 1,663KB → 50KB (97% smaller)
+  - Smiling: 652KB → 10KB (98% smaller)
+
+### CSS Updates (src/styles/global.css)
+- Added custom @keyframes for pulse-subtle animation
+- Added .animate-pulse-subtle class
+
+### Cleanup
+- Removed unused public/images/ folder (images now in src/assets/)
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **src/assets/ over public/ for images**
+   - Astro can optimize images in src/assets/
+   - Automatic WebP conversion, resizing, lazy loading
+   - public/ images are served as-is (no optimization)
+
+2. **Keep source images as jpg/png**
+   - Originals stay editable
+   - Astro generates optimized versions at build time
+   - New filenames with hashes for cache busting
+
+3. **Gradient badge design**
+   - Purple-to-blue gradient fits modern tech aesthetic
+   - Subtle animation draws attention without being annoying
+   - Pulsing dot adds "live" feel
+
+--------------------------------------------------------------------------------
+## Issues Encountered
+--------------------------------------------------------------------------------
+
+1. **Server showing old version after git pull**
+   - Root cause: Build was happening in /root/ex10x/ but nginx serves from
+     /var/www/ex10x/dist/
+   - Initial fix: Tried symlink, but nginx (www-data user) can't access /root/
+   - Working fix: Copy dist/* to /var/www/ex10x/dist/ after building
+
+2. **Git merge conflict on server**
+   - deploy/install.sh had local modifications on server
+   - Used git stash, pull, stash pop workflow
+   - Conflict remains in install.sh (can resolve later, doesn't affect site)
+
+3. **1-year cache on static assets**
+   - nginx config has aggressive caching
+   - Not an issue because Astro uses hashed filenames
+   - HTML files not cached, so updates appear after hard refresh
+
+--------------------------------------------------------------------------------
+## Commits Made
+--------------------------------------------------------------------------------
+
+- 21911c4: Add AI badge, optimized images, and update homepage CTA
+
+--------------------------------------------------------------------------------
+## Mistakes & Lessons
+--------------------------------------------------------------------------------
+
+1. **mkdir with Windows paths in bash**
+   - `mkdir -p C:\dev\...` doesn't work reliably in git bash
+   - Use forward slashes: `mkdir -p C:/dev/...`
+
+2. **Server directory structure matters**
+   - Can't just build anywhere and expect nginx to find it
+   - Either build in the right place or copy files after
+   - Moving repo to /var/www/ex10x is cleanest solution
+
+3. **Symlinks don't bypass permissions**
+   - Symlink to /root/ doesn't help if www-data can't traverse /root/
+   - Always consider the user running the service
+
+--------------------------------------------------------------------------------
+## Architecture Notes
+--------------------------------------------------------------------------------
+
+### Image Optimization Flow
+
+```
+Source Image (src/assets/images/)     Build Process              Output (dist/_astro/)
+--------------------------------     -------------              ---------------------
+Kayaking...jpg (1.7MB, 4000x1848)    astro build    →    Kayaking...fQAAA-WP.webp (50KB, 600x600)
+Smiling...png (652KB, 800x800)       astro build    →    Smiling...D_ngZAPW.webp (10KB, 400x400)
+```
+
+### Deployment Workflow (Current)
+
+```
+Windows Dev Machine                    Ubuntu Server
+-------------------                    -------------
+1. Edit files
+2. git commit & push
+                                       3. git pull (in /root/ex10x or /var/www/ex10x)
+                                       4. npm run build
+                                       5. cp -r dist/* /var/www/ex10x/dist/ (if needed)
+                                       6. chown -R www-data:www-data /var/www/ex10x/dist/
+```
+
+**Better approach:** Move repo to /var/www/ex10x so step 5-6 aren't needed.
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. Move server repo from /root/ex10x to /var/www/ex10x (simplify deploys)
+2. Resolve merge conflict in deploy/install.sh on server
+3. ~~Add actual photos~~ ✓ DONE
+4. Implement booking functionality (Calendly embed?)
+5. Populate videos page with content
+6. Write more blog posts
+7. Add SEO metadata (og tags, description, etc.)
+8. Consider GitHub Actions for auto-deploy on push
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+**Editing the site without a CMS:**
+This is a static Astro site. To make changes:
+1. Edit files in src/ (pages, components, styles)
+2. Images go in src/assets/images/ for optimization
+3. git commit & push
+4. SSH to server, git pull, npm run build, copy to /var/www/ex10x/dist/
+
+**Image optimization is automatic:**
+Just drop images in src/assets/images/, import them in Astro files using:
+```astro
+import { Image } from 'astro:assets';
+import myImage from '../assets/images/myfile.jpg';
+
+<Image src={myImage} alt="description" width={600} height={400} />
+```
+
+**The AI badge** uses a custom animation defined in src/styles/global.css.
+It's positioned above the hero h1 in src/pages/index.astro.
+
+================================================================================
+                              END OF LOG
+================================================================================
