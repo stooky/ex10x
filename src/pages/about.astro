@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import smilingImage from '../assets/images/Smiling about AI.png';
 ---
 
 <Layout title="About - ex10x" description="Learn more about Chris Fossenier and the ex10x mission.">
@@ -9,8 +11,15 @@ import Layout from '../layouts/Layout.astro';
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 				<div class="md:col-span-1">
-					<div class="bg-gray-100 rounded-2xl aspect-square flex items-center justify-center sticky top-24">
-						<span class="text-gray-400 text-sm">Photo placeholder</span>
+					<div class="rounded-2xl overflow-hidden sticky top-24">
+						<Image
+							src={smilingImage}
+							alt="Chris Fossenier smiling"
+							width={400}
+							height={400}
+							class="w-full h-full object-cover aspect-square"
+							loading="eager"
+						/>
 					</div>
 				</div>
 
