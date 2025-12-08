@@ -165,6 +165,85 @@ git push
 sudo /var/www/ex10x/deploy/rebuild.sh
 ```
 
+--- UPDATE: 2025-12-08 15:50:00 ---
+
+## Session Summary
+
+Extended the session to significantly enhance the blog system and Cal.com embed,
+plus added a new blog post based on user-provided content.
+
+## New Work Completed
+
+### Cal.com Embed Improvements (src/pages/book.astro)
+- Added loading spinner with smooth fade-out transition
+- Set light theme with brandColor #111827 (gray-900)
+- Added hideEventTypeDetails: true for cleaner appearance
+- Event listener on "linkReady" to hide skeleton
+
+### Blog System Enhancements
+1. **3-column grid layout** (src/pages/blog/index.astro)
+   - Responsive: 1 col mobile, 2 col tablet, 3 col desktop
+   - Wider container (max-w-6xl)
+   - Compact card design with 16:9 image aspect ratio
+
+2. **Featured images**
+   - Added image field to blog frontmatter
+   - Created SVG placeholder images matching site aesthetic
+   - Graceful fallback gradient if no image
+
+3. **Reading time**
+   - Calculated at 200 words/minute
+   - Displayed on both list and post pages
+
+4. **Related posts** (src/pages/blog/[...slug].astro)
+   - Shows up to 2 related posts based on shared tags
+   - Scored by tag overlap, sorted by date
+
+5. **RSS feed** (src/pages/rss.xml.ts)
+   - Installed @astrojs/rss package
+   - Added site URL to astro.config.mjs
+   - RSS autodiscovery link in Layout.astro head
+   - "Subscribe via RSS" link on blog page
+
+### New Blog Post
+- "The 44x Opportunity: How AI Turned a $400k Problem into a $9k Solution"
+- Case study format with comparison table
+- Custom SVG placeholder with "44x" branding
+
+## Additional Files Changed
+
+New:
+- src/pages/rss.xml.ts
+- src/content/blog/44x-opportunity-with-ai.md
+- public/images/blog/vibe-coding.svg
+- public/images/blog/automation.svg
+- public/images/blog/44x-opportunity.svg
+
+Modified:
+- src/pages/blog/index.astro (3-col grid, images, reading time)
+- src/pages/blog/[...slug].astro (reading time, related posts)
+- src/layouts/Layout.astro (RSS autodiscovery)
+- astro.config.mjs (added site URL)
+- package.json (added @astrojs/rss)
+- src/content/blog/*.md (added image frontmatter)
+
+## Commits Made
+
+- 12e0b42: Add mountain hero background and Cal.com booking integration
+
+## Updated Next Steps
+
+1. ~~Implement booking functionality~~ ✓ DONE
+2. ~~Write more blog posts~~ ✓ DONE (added 44x article)
+3. ~~Add RSS feed~~ ✓ DONE
+4. Commit and deploy all changes
+5. Move server repo from /root/ex10x to /var/www/ex10x
+6. Resolve merge conflict in deploy/install.sh on server
+7. Populate videos page with content
+8. Add SEO metadata (og tags, etc.)
+
+--- END UPDATE ---
+
 ================================================================================
                               END OF LOG
 ================================================================================

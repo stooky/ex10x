@@ -13,47 +13,75 @@ function formatDate(date: Date): string {
 		day: 'numeric',
 	});
 }
+
+function calculateReadingTime(content: string): number {
+	const wordsPerMinute = 200;
+	const words = content.trim().split(/\s+/).length;
+	return Math.ceil(words / wordsPerMinute);
+}
 ---
 
 <Layout title="Blog - ex10x" description="Articles on AI, vibe coding, and productivity.">
 	<section class="py-20">
-		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="text-center mb-12">
 				<h1 class="text-4xl font-bold text-gray-900 mb-4">Blog</h1>
-				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
 					Practical guides and insights on using AI to boost your productivity.
 				</p>
+				<a
+					href="/rss.xml"
+					class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+				>
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/>
+					</svg>
+					Subscribe via RSS
+				</a>
 			</div>
 
 			{posts.length > 0 ? (
-				<div class="space-y-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{posts.map((post) => (
 						<article class="group">
-							<a href={`/blog/${post.slug}`} class="block">
-								<div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-shadow">
-									<div class="flex flex-wrap gap-2 mb-3">
-										{post.data.tags.map((tag) => (
-											<span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
-												{tag}
-											</span>
-										))}
+							<a href={`/blog/${post.slug}`} class="block h-full">
+								<div class="bg-white border border-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+									<div class="aspect-[16/9] bg-gray-900 relative overflow-hidden">
+										{post.data.image ? (
+											<img
+												src={post.data.image}
+												alt=""
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+											/>
+										) : (
+											<div class="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900"></div>
+										)}
 									</div>
-									<h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-										{post.data.title}
-									</h2>
-									<p class="text-gray-600 mb-4">
-										{post.data.description}
-									</p>
-									<div class="flex items-center justify-between">
-										<time class="text-sm text-gray-500" datetime={post.data.pubDate.toISOString()}>
-											{formatDate(post.data.pubDate)}
-										</time>
-										<span class="text-sm font-medium text-gray-900 group-hover:translate-x-1 transition-transform inline-flex items-center">
-											Read more
-											<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-											</svg>
-										</span>
+									<div class="p-5 flex flex-col flex-grow">
+										<div class="flex flex-wrap gap-1.5 mb-3">
+											{post.data.tags.slice(0, 2).map((tag) => (
+												<span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+													{tag}
+												</span>
+											))}
+										</div>
+										<h2 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors line-clamp-2">
+											{post.data.title}
+										</h2>
+										<p class="text-sm text-gray-600 mb-4 line-clamp-2 flex-grow">
+											{post.data.description}
+										</p>
+										<div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+											<time datetime={post.data.pubDate.toISOString()}>
+												{formatDate(post.data.pubDate)}
+											</time>
+											<span class="flex items-center gap-1">
+												<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+												</svg>
+												{calculateReadingTime(post.body)} min
+											</span>
+										</div>
 									</div>
 								</div>
 							</a>

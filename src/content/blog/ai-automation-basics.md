@@ -3,6 +3,7 @@ title: "AI Automation Basics: Save Hours Every Week"
 description: "Discover how to identify and automate repetitive tasks using AI tools to reclaim your time."
 pubDate: 2024-11-28
 tags: ["automation", "ai", "productivity"]
+image: "/images/blog/automation.svg"
 ---
 
 How much time do you spend on repetitive tasks? If you're like most people, it's more than you realize. AI automation can help you reclaim those hours.

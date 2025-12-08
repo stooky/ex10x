@@ -6,13 +6,13 @@ export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
 		params: { slug: post.slug },
-		props: post,
+		props: { post, allPosts: posts },
 	}));
 }
 
-type Props = CollectionEntry<'blog'>;
+type Props = { post: CollectionEntry<'blog'>; allPosts: CollectionEntry<'blog'>[] };
 
-const post = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
 
 function formatDate(date: Date): string {
@@ -22,6 +22,31 @@ function formatDate(date: Date): string {
 		day: 'numeric',
 	});
 }
+
+function calculateReadingTime(content: string): number {
+	const wordsPerMinute = 200;
+	const words = content.trim().split(/\s+/).length;
+	return Math.ceil(words / wordsPerMinute);
+}
+
+// Find related posts based on shared tags
+function getRelatedPosts(currentPost: CollectionEntry<'blog'>, allPosts: CollectionEntry<'blog'>[], limit = 2) {
+	const currentTags = currentPost.data.tags;
+
+	return allPosts
+		.filter(p => p.slug !== currentPost.slug)
+		.map(p => ({
+			post: p,
+			score: p.data.tags.filter(tag => currentTags.includes(tag)).length
+		}))
+		.filter(p => p.score > 0)
+		.sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+		.slice(0, limit)
+		.map(p => p.post);
+}
+
+const relatedPosts = getRelatedPosts(post, allPosts);
+const readingTime = calculateReadingTime(post.body);
 ---
 
 <Layout title={`${post.data.title} - ex10x`} description={post.data.description}>
@@ -57,6 +82,13 @@ function formatDate(date: Date): string {
 					<time datetime={post.data.pubDate.toISOString()}>
 						{formatDate(post.data.pubDate)}
 					</time>
+					<span class="mx-2">·</span>
+					<span class="flex items-center gap-1">
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
+						{readingTime} min read
+					</span>
 				</div>
 			</header>
 
@@ -65,8 +97,36 @@ function formatDate(date: Date): string {
 				<Content />
 			</div>
 
-			<!-- Footer -->
-			<footer class="mt-16 pt-8 border-t border-gray-200">
+			<!-- Related Posts -->
+			{relatedPosts.length > 0 && (
+				<aside class="mt-16 pt-8 border-t border-gray-200">
+					<h3 class="text-lg font-semibold text-gray-900 mb-6">Related Articles</h3>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+						{relatedPosts.map((relatedPost) => (
+							<a href={`/blog/${relatedPost.slug}`} class="group block">
+								<div class="bg-gray-50 rounded-xl p-5 hover:bg-gray-100 transition-colors">
+									<div class="flex flex-wrap gap-1.5 mb-2">
+										{relatedPost.data.tags.slice(0, 2).map((tag) => (
+											<span class="text-xs font-medium text-gray-500 bg-white px-2 py-0.5 rounded">
+												{tag}
+											</span>
+										))}
+									</div>
+									<h4 class="font-semibold text-gray-900 group-hover:text-gray-700 transition-colors mb-1">
+										{relatedPost.data.title}
+									</h4>
+									<p class="text-sm text-gray-600 line-clamp-2">
+										{relatedPost.data.description}
+									</p>
+								</div>
+							</a>
+						))}
+					</div>
+				</aside>
+			)}
+
+			<!-- Footer CTA -->
+			<footer class="mt-12 pt-8 border-t border-gray-200">
 				<div class="bg-gray-50 rounded-xl p-6">
 					<h3 class="text-lg font-semibold text-gray-900 mb-2">Want to learn more?</h3>
 					<p class="text-gray-600 mb-4">

@@ -2,6 +2,19 @@
                          WEBSITE CHANGELOG - ex10x.com
 ================================================================================
 
+20251208-1545 - Blog enhancements and new article
+  - Redesigned blog to 3-column responsive grid layout
+  - Added featured images with SVG placeholders
+  - Added reading time estimates to posts
+  - Added related posts section at bottom of articles
+  - Created RSS feed at /rss.xml with autodiscovery
+  - New blog post: "The 44x Opportunity" case study
+
+20251208-1520 - Cal.com embed improvements
+  - Added loading spinner with smooth fade transition
+  - Set light theme with gray-900 brand color
+  - Hidden event type details for cleaner look
+
 20251208-1505 - Cal.com booking integration
   - Integrated Cal.com inline embed on book page
   - Configured for chris.fossenier/30min event

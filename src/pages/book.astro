@@ -75,11 +75,16 @@ import Layout from '../layouts/Layout.astro';
 			</div>
 
 			<!-- Cal.com Embed -->
-			<div class="bg-white border border-gray-200 rounded-xl p-8">
-				<p class="text-gray-600 mb-6 text-center">
-					Select a time that works for you:
-				</p>
-				<div id="cal-embed" class="min-h-[600px]"></div>
+			<div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+				<div id="cal-embed" class="min-h-[580px] relative">
+					<!-- Loading skeleton -->
+					<div id="cal-loading" class="absolute inset-0 flex items-center justify-center bg-gray-50">
+						<div class="text-center">
+							<div class="inline-block w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin mb-3"></div>
+							<p class="text-gray-500 text-sm">Loading calendar...</p>
+						</div>
+					</div>
+				</div>
 
 				<script type="text/javascript">
 					(function (C, A, L) {
@@ -104,15 +109,41 @@ import Layout from '../layouts/Layout.astro';
 							p(cal, ar);
 						};
 					})(window, "https://app.cal.com/embed/embed.js", "init");
+
 					Cal("init", {origin:"https://app.cal.com"});
 
 					Cal("inline", {
-						elementOrSelector:"#cal-embed",
+						elementOrSelector: "#cal-embed",
 						calLink: "chris.fossenier/30min",
-						layout: "month_view"
+						layout: "month_view",
+						config: {
+							theme: "light"
+						}
 					});
 
-					Cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+					Cal("ui", {
+						theme: "light",
+						hideEventTypeDetails: true,
+						layout: "month_view",
+						styles: {
+							branding: {
+								brandColor: "#111827"
+							}
+						}
+					});
+
+					// Hide loading skeleton when calendar loads
+					Cal("on", {
+						action: "linkReady",
+						callback: function() {
+							const loader = document.getElementById('cal-loading');
+							if (loader) {
+								loader.style.opacity = '0';
+								loader.style.transition = 'opacity 0.3s ease';
+								setTimeout(() => loader.remove(), 300);
+							}
+						}
+					});
 				</script>
 			</div>
 

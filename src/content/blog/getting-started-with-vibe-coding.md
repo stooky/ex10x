@@ -3,6 +3,7 @@ title: "Getting Started with Vibe Coding"
 description: "Learn what vibe coding is and how to use AI assistants to dramatically speed up your development workflow."
 pubDate: 2024-12-01
 tags: ["vibe-coding", "ai", "productivity"]
+image: "/images/blog/vibe-coding.svg"
 ---
 
 Vibe coding is a new way of working with code where you collaborate with AI assistants to build software faster than ever before. Instead of writing every line yourself, you describe what you want and refine the output.
