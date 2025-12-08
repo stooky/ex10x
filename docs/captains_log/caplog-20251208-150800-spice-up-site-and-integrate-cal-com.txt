@@ -1,0 +1,170 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251208-150800-spice-up-site-and-integrate-cal-com.txt
+Created:      2025-12-08 15:08:00
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       main
+Previous Log: caplog-20251202-224052-edited-website-with-no-cms.txt
+================================================================================
+
+## Summary
+
+Major visual upgrade to the homepage hero section with a dramatic B&W mountain
+background image, plus full integration of Cal.com booking functionality. Also
+created a website changelog file for tracking site updates.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+The site at https://ex10x.com now has:
+- Dramatic mountain background image in hero section (B&W, high contrast)
+- White text with drop shadows for readability over dark background
+- Frosted glass effect on the "built with AI" badge
+- Fully functional Cal.com booking embed on the /book page
+- New changelog file for tracking website changes
+
+Uncommitted changes ready to deploy.
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+### Hero Section Redesign (src/pages/index.astro)
+1. Added mountain.avif as full-bleed background image
+   - Copied from ./assets/images/ to src/assets/images/ for Astro optimization
+   - Image compressed from 198KB AVIF to 75KB WebP (62% smaller)
+2. Added 50% black overlay for text contrast against B&W image
+3. Converted all hero text to white/light colors
+4. Added drop shadows on text for extra legibility
+5. Updated "built with AI" badge to frosted glass effect
+   - bg-white/10 backdrop-blur-sm border-white/20
+   - White text instead of gradient
+6. Inverted CTA button to white background with dark text
+7. Set hero minimum height to 600px (mobile) / 700px (desktop)
+
+### Cal.com Booking Integration (src/pages/book.astro)
+1. Activated the pre-scaffolded Cal.com embed script
+2. Configured for chris.fossenier/30min event type
+3. Removed placeholder content that was causing double-display issue
+4. Cleaned up unnecessary wrapper divs
+
+### Documentation
+1. Created docs/changelog-website.txt
+   - Tracks website changes in reverse chronological order
+   - Format: YYYYMMDD-HHMM - short description + bullet points
+   - Populated with history from initial launch through today
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **50% overlay opacity for hero**
+   - Balances image visibility with text readability
+   - Works well with high-contrast B&W mountain image
+
+2. **White text over dark background**
+   - Clean, modern look
+   - Drop shadows add depth without being heavy
+
+3. **Frosted glass badge**
+   - Matches the dark/dramatic hero aesthetic
+   - backdrop-blur creates subtle depth effect
+
+4. **Inline Cal.com embed over popup**
+   - Users can see availability without extra clicks
+   - Better UX for booking-focused page
+
+5. **Website changelog separate from captain's logs**
+   - Changelog = quick reference for site changes only
+   - Captain's logs = detailed session context for AI handoffs
+
+--------------------------------------------------------------------------------
+## Issues Encountered
+--------------------------------------------------------------------------------
+
+1. **Cal.com double display**
+   - Problem: Placeholder content showing alongside actual embed
+   - Cause: Placeholder div content wasn't removed when script was uncommented
+   - Fix: Replaced inner placeholder with empty div
+
+2. **Port 4321 in use**
+   - Dev server auto-switched to port 4322
+   - Not a real issue, just noted for context
+
+--------------------------------------------------------------------------------
+## Files Changed
+--------------------------------------------------------------------------------
+
+Modified:
+- src/pages/index.astro (hero redesign with mountain background)
+- src/pages/book.astro (Cal.com embed activation)
+
+New:
+- src/assets/images/mountain.avif (hero background image)
+- docs/changelog-website.txt (website change tracking)
+
+--------------------------------------------------------------------------------
+## Commits Made
+--------------------------------------------------------------------------------
+
+None yet - changes are uncommitted and ready for review.
+
+Uncommitted files:
+- M src/pages/book.astro
+- M src/pages/index.astro
+- ?? src/assets/images/mountain.avif
+- ?? docs/changelog-website.txt
+
+--------------------------------------------------------------------------------
+## Mistakes & Lessons
+--------------------------------------------------------------------------------
+
+1. **Check for placeholder content when activating embeds**
+   - Scaffolded code often has placeholder UI that needs removal
+   - Always test after uncommenting/activating code
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. ~~Implement booking functionality~~ ✓ DONE (Cal.com integrated)
+2. Commit and deploy these changes to production
+3. Move server repo from /root/ex10x to /var/www/ex10x (simplify deploys)
+4. Resolve merge conflict in deploy/install.sh on server
+5. Populate videos page with content
+6. Write more blog posts
+7. Add SEO metadata (og tags, description, etc.)
+8. Consider GitHub Actions for auto-deploy on push
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+**Hero background image:**
+The mountain image is imported from src/assets/images/mountain.avif and used
+as a full-bleed background with an absolute positioned overlay div (bg-black/50).
+Text is white with drop-shadow classes for readability.
+
+**Cal.com integration:**
+The booking page at /book now has a working inline Cal.com embed. The cal link
+is `chris.fossenier/30min`. Script is at the bottom of the embed container div.
+
+**Website changelog:**
+New file at docs/changelog-website.txt tracks site changes in simple format.
+Most recent entries at top. Update this when making visual/functional changes.
+
+**To deploy these changes:**
+```bash
+git add .
+git commit -m "Add mountain hero background and Cal.com booking integration"
+git push
+# Then on server:
+sudo /var/www/ex10x/deploy/rebuild.sh
+```
+
+================================================================================
+                              END OF LOG
+================================================================================

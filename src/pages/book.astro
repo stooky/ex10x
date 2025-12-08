@@ -76,58 +76,44 @@ import Layout from '../layouts/Layout.astro';
 
 			<!-- Cal.com Embed -->
 			<div class="bg-white border border-gray-200 rounded-xl p-8">
-				<div class="text-center">
-					<p class="text-gray-600 mb-6">
-						Select a time that works for you:
-					</p>
-					<!-- Cal.com embed will go here -->
-					<!-- Replace YOUR_CALCOM_USERNAME with your actual Cal.com username -->
-					<div id="cal-embed" class="min-h-[600px] flex items-center justify-center bg-gray-50 rounded-lg">
-						<div class="text-center p-8">
-							<p class="text-gray-500 mb-4">Cal.com booking widget will load here</p>
-							<p class="text-sm text-gray-400">
-								To enable: Add your Cal.com embed script with your username
-							</p>
-						</div>
-					</div>
+				<p class="text-gray-600 mb-6 text-center">
+					Select a time that works for you:
+				</p>
+				<div id="cal-embed" class="min-h-[600px]"></div>
 
-					<!-- Uncomment and update this script when you have your Cal.com username -->
-					<!--
-					<script type="text/javascript">
-						(function (C, A, L) {
-							let p = function (a, ar) { a.q.push(ar); };
-							let d = C.document;
-							C.Cal = C.Cal || function () {
-								let cal = C.Cal;
-								let ar = arguments;
-								if (!cal.loaded) {
-									cal.ns = {};
-									cal.q = cal.q || [];
-									d.head.appendChild(d.createElement("script")).src = A;
-									cal.loaded = true;
-								}
-								if (ar[0] === L) {
-									const api = function () { p(api, arguments); };
-									const namespace = ar[1];
-									api.q = api.q || [];
-									typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
-									return;
-								}
-								p(cal, ar);
-							};
-						})(window, "https://app.cal.com/embed/embed.js", "init");
-						Cal("init", {origin:"https://app.cal.com"});
+				<script type="text/javascript">
+					(function (C, A, L) {
+						let p = function (a, ar) { a.q.push(ar); };
+						let d = C.document;
+						C.Cal = C.Cal || function () {
+							let cal = C.Cal;
+							let ar = arguments;
+							if (!cal.loaded) {
+								cal.ns = {};
+								cal.q = cal.q || [];
+								d.head.appendChild(d.createElement("script")).src = A;
+								cal.loaded = true;
+							}
+							if (ar[0] === L) {
+								const api = function () { p(api, arguments); };
+								const namespace = ar[1];
+								api.q = api.q || [];
+								typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+								return;
+							}
+							p(cal, ar);
+						};
+					})(window, "https://app.cal.com/embed/embed.js", "init");
+					Cal("init", {origin:"https://app.cal.com"});
 
-						Cal("inline", {
-							elementOrSelector:"#cal-embed",
-							calLink: "YOUR_CALCOM_USERNAME/30min",
-							layout: "month_view"
-						});
+					Cal("inline", {
+						elementOrSelector:"#cal-embed",
+						calLink: "chris.fossenier/30min",
+						layout: "month_view"
+					});
 
-						Cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-					</script>
-					-->
-				</div>
+					Cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+				</script>
 			</div>
 
 			<div class="mt-8 text-center">

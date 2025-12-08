@@ -1,0 +1,35 @@
+================================================================================
+                         WEBSITE CHANGELOG - ex10x.com
+================================================================================
+
+20251208-1505 - Cal.com booking integration
+  - Integrated Cal.com inline embed on book page
+  - Configured for chris.fossenier/30min event
+  - Removed placeholder content from embed container
+
+20251208-1452 - Hero section redesign
+  - Added dramatic B&W mountain background image to hero
+  - Image optimized from 198KB AVIF to 75KB WebP
+  - Switched hero text to white with drop shadows
+  - Added 50% dark overlay for text contrast
+  - Updated badge to frosted glass effect
+  - Inverted CTA button to white with dark text
+  - Set hero minimum height to 600px/700px
+
+20251202-2219 - Visual polish and branding
+  - Added animated "built with AI" badge on homepage hero
+  - Replaced photo placeholders with optimized images
+  - Kayaking photo in about section (1.7MB -> 50KB WebP)
+  - Smiling portrait on about page (652KB -> 10KB WebP)
+  - Updated CTA button to "Book a 30 minute AI Session!"
+  - Removed "Read Blog" button from hero
+
+20251201-2210 - Initial website launch
+  - Astro 5 + Tailwind CSS 4 setup
+  - Homepage with hero, features, about section, CTA
+  - About, Book, Videos pages
+  - Blog system with content collections
+  - Navigation and footer components
+  - Two initial blog posts (vibe coding, AI automation)
+
+================================================================================
