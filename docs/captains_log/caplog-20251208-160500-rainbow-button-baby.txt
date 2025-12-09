@@ -1,0 +1,127 @@
+================================================================================
+                              CAPTAIN'S LOG
+================================================================================
+Entry:        caplog-20251208-160500-rainbow-button-baby.txt
+Created:      2025-12-08 16:05:00
+Author:       Claude (AI Assistant)
+Project:      ex10x
+Branch:       main
+Previous Log: caplog-20251208-150800-spice-up-site-and-integrate-cal-com.txt
+================================================================================
+
+## Summary
+
+Quick visual polish session: Added an eye-catching purple-blue AI gradient to
+the main CTA button on the homepage, updated hero copy, and streamlined the
+hero section by removing the subtitle paragraph.
+
+--------------------------------------------------------------------------------
+## Current State of the Project
+--------------------------------------------------------------------------------
+
+The site at https://ex10x.com is feature-complete for this session with:
+- Mountain background hero with dramatic B&W imagery
+- Purple-blue gradient CTA button ("Book a 30 minute AI Session!")
+- Updated "built with AI - in about 20 minutes" badge text
+- Streamlined hero with headline direct to CTA (no subtitle)
+- Full blog system with 3 articles, RSS feed, related posts
+- Working Cal.com booking integration
+
+Uncommitted changes ready to push.
+
+--------------------------------------------------------------------------------
+## Work Completed
+--------------------------------------------------------------------------------
+
+### Homepage CTA Button (src/pages/index.astro)
+1. Replaced white button with purple-blue AI gradient
+   - Base: violet-600 → purple-600 → blue-600
+   - Hover: brighter gradient (500 variants)
+   - White text for contrast
+   - Scale + shadow animation on hover
+
+2. Removed subtitle paragraph
+   - Was: "Learn vibe coding and modern AI techniques..."
+   - Now: Headline flows directly to CTA button
+   - Cleaner, more focused hero section
+
+3. Updated badge text (user edit)
+   - Was: "This entire site was built with AI!!"
+   - Now: "This entire site was built with AI - in about 20 minutes"
+
+4. Updated headline (user edit)
+   - Single line, removed span block
+   - "Are you a Non-Technical Leader or Executive Looking to 10x Your
+     Productivity with AI?"
+
+--------------------------------------------------------------------------------
+## Decisions Made
+--------------------------------------------------------------------------------
+
+1. **Purple-blue gradient for CTA**
+   - Matches the ubiquitous "AI gradient" trend (violet → purple → blue)
+   - Creates visual contrast against B&W mountain background
+   - White text on dark gradient for readability
+   - Layered spans for smooth hover transition effect
+
+2. **Remove subtitle paragraph**
+   - Hero was getting text-heavy
+   - Headline is strong enough to stand alone
+   - CTA button provides clear next action
+
+--------------------------------------------------------------------------------
+## Files Changed
+--------------------------------------------------------------------------------
+
+Modified:
+- src/pages/index.astro (gradient button, removed subtitle, updated copy)
+
+--------------------------------------------------------------------------------
+## Commits Made
+--------------------------------------------------------------------------------
+
+Previous session commits (already pushed):
+- fb69df9: Enhance blog system, improve Cal.com embed, add 44x article
+- 12e0b42: Add mountain hero background and Cal.com booking integration
+
+This session: Uncommitted changes in src/pages/index.astro
+
+--------------------------------------------------------------------------------
+## Mistakes & Lessons
+--------------------------------------------------------------------------------
+
+None this session - straightforward visual updates.
+
+--------------------------------------------------------------------------------
+## Next Steps
+--------------------------------------------------------------------------------
+
+1. Commit and push these homepage changes
+2. Deploy to production server
+3. Move server repo from /root/ex10x to /var/www/ex10x
+4. Populate videos page with content
+5. Add SEO metadata (og tags, etc.)
+6. Consider GitHub Actions for auto-deploy
+
+--------------------------------------------------------------------------------
+## Session Context for Future Claude
+--------------------------------------------------------------------------------
+
+**The AI gradient button** uses a layered approach:
+```html
+<a class="group relative ... overflow-hidden">
+  <span class="absolute inset-0 bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600"></span>
+  <span class="absolute inset-0 bg-gradient-to-r from-violet-500 ... opacity-0 group-hover:opacity-100"></span>
+  <span class="relative">Button Text</span>
+</a>
+```
+The hover effect fades in a brighter gradient layer while scaling up.
+
+**Hero is now minimal:**
+- Badge → Headline → Button
+- No subtitle/description paragraph
+- Lets the mountain image breathe
+
+================================================================================
+                              END OF LOG
+================================================================================
